@@ -1,11 +1,20 @@
+import Coursecard from "./Coursecard";
+import courses from "./data/courses";
 
 
-const Allcourses = () => {
+
+const Allcourses= () => {
   return (
-    <div>
-      <h1>All Courses</h1>
+    <div className="course-list">
+      {courses.map((course) => (
+        <Coursecard
+          key={course.id} 
+          title={course.title} 
+          description={course.description} 
+        />
+      ))}
     </div>
-  )
-}
+  );
+};
 
 export default Allcourses

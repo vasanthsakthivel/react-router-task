@@ -5,6 +5,8 @@ import Fullstack from "./components/fullstack"
 import Datascience from "./components/datascience"
 import Cybersecurity from "./components/cybersecurity"
 import Career from "./components/career"
+import './App.css'
+
 
 
 

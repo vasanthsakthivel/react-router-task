@@ -1,11 +1,21 @@
+import Coursecard from "./Coursecard";
+import courses from "./data/courses";
 
 
-const Fullstack = () => {
+const FullStack = () => {
   return (
-    <div>
-      <h1>Full stack development</h1>
+    <div className="course-list">
+      {courses
+        .filter((course) => course.category === "fullstack")
+        .map((course) => (
+          <Coursecard
+            key={course.id} 
+            title={course.title} 
+            description={course.description} 
+          />
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default Fullstack;
+export default FullStack;
