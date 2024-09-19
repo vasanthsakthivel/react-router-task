@@ -11,6 +11,7 @@ const Career = () => {
           <Coursecard
             key={course.id} 
             title={course.title} 
+            image={course.image}
             description={course.description} 
           />
       ))}

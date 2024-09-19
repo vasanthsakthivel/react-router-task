@@ -9,7 +9,8 @@ const Allcourses= () => {
       {courses.map((course) => (
         <Coursecard
           key={course.id} 
-          title={course.title} 
+          title={course.title}
+          image={course.image}
           description={course.description} 
         />
       ))}
