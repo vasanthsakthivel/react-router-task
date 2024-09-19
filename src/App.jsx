@@ -1,10 +1,10 @@
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom"
 import Navbar from "./components/Navbar"
-import Allcourses from "./components/allcourses"
-import Fullstack from "./components/fullstack"
-import Datascience from "./components/datascience"
-import Cybersecurity from "./components/cybersecurity"
-import Career from "./components/career"
+import Allcourses from "./components/Allcourses"
+import Fullstack from "./components/Fullstack"
+import Datascience from "./components/Datascience"
+import Cybersecurity from "./components/Cybersecurity"
+import Career from "./components/Career"
 import './App.css'
 
 
