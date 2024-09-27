@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Home.css'
+import { useCart } from './CartContext';
 
 
 
@@ -57,7 +58,7 @@ const products = [
   {
     "id": 5,
     "title": "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
-    "price": 695,
+    "price": 695.00,
     "description": "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.",
     "category": "jewelery",
     "image": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
@@ -69,7 +70,7 @@ const products = [
   {
     "id": 6,
     "title": "Solid Gold Petite Micropave ",
-    "price": 168,
+    "price": 168.00,
     "description": "Satisfaction Guaranteed. Return or exchange any order within 30 days.Designed and sold by Hafeez Center in the United States. Satisfaction Guaranteed. Return or exchange any order within 30 days.",
     "category": "jewelery",
     "image": "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg",
@@ -105,7 +106,7 @@ const products = [
   {
     "id": 9,
     "title": "WD 2TB Elements Portable External Hard Drive - USB 3.0 ",
-    "price": 64,
+    "price": 64.00,
     "description": "USB 3.0 and USB 2.0 Compatibility Fast data transfers Improve PC Performance High Capacity; Compatibility Formatted NTFS for Windows 10, Windows 8.1, Windows 7; Reformatting may be required for other operating systems; Compatibility may vary depending on user’s hardware configuration and operating system",
     "category": "electronics",
     "image": "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg",
@@ -117,7 +118,7 @@ const products = [
   {
     "id": 10,
     "title": "SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s",
-    "price": 109,
+    "price": 109.00,
     "description": "Easy upgrade for faster boot up, shutdown, application load and response (As compared to 5400 RPM SATA 2.5” hard drive; Based on published specifications and internal benchmarking tests using PCMark vantage scores) Boosts burst write performance, making it ideal for typical PC workloads The perfect balance of performance and reliability Read/write speeds of up to 535MB/s/450MB/s (Based on internal testing; Performance may vary depending upon drive capacity, host device, OS and application.)",
     "category": "electronics",
     "image": "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg",
@@ -127,49 +128,24 @@ const products = [
     }
   }
 ]
+
 const Home = () => {
   const navigate = useNavigate();
-
-  // State to keep track of the quantity of each product in the cart
-  const [cartItems, setCartItems] = useState({});
+  const { cartItems, addToCart, removeFromCart, totalQuantity } = useCart();
 
   // Navigate to the cart page
   const goToCart = () => {
     navigate('/cart');
   };
 
-  // Function to add an item to the cart
-  const addToCart = (productId) => {
-    setCartItems((prevItems) => {
-      const updatedItems = { ...prevItems };
-      updatedItems[productId] = (updatedItems[productId] || 0) + 1;
-      return updatedItems;
-    });
-  };
-
-  // Function to remove an item from the cart
-  const removeFromCart = (productId) => {
-    setCartItems((prevItems) => {
-      const updatedItems = { ...prevItems };
-      if (updatedItems[productId] > 0) {
-        updatedItems[productId] -= 1;
-        if (updatedItems[productId] === 0) {
-          delete updatedItems[productId];
-        }
-      }
-      return updatedItems;
-    });
-  };
-
-  // Calculate the total quantity of items in the cart
-  const totalQuantity = Object.values(cartItems).reduce((total, qty) => total + qty, 0);
-
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container px-4 px-lg-5">
           <a className="navbar-brand" href="#!">Start Bootstrap</a>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
               <li className="nav-item"><a className="nav-link active" aria-current="page" href="#!">Home</a></li>
@@ -194,6 +170,7 @@ const Home = () => {
           </div>
         </div>
       </nav>
+      
       <header className="bg-dark py-5">
         <div className="container px-4 px-lg-5 my-5">
           <div className="text-center text-white">
@@ -202,18 +179,26 @@ const Home = () => {
           </div>
         </div>
       </header>
+
       <div className="container my-5">
         <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
           {products.map((product) => (
             <div key={product.id} className="col mb-5">
               <div className="card h-100">
+                {/* Product image */}
                 <img className="card-img-top" src={product.image} alt={product.title} />
+
+                {/* Product details */}
                 <div className="card-body p-4">
                   <div className="text-center">
+                    {/* Product title */}
                     <h5 className="fw-bolder">{product.title}</h5>
+                    {/* Product price */}
                     <div>${product.price.toFixed(2)}</div>
                   </div>
                 </div>
+
+                {/* Add-to-cart and Remove-from-cart buttons */}
                 <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                   <div className="text-center">
                     <div className="quantity-buttons">
@@ -237,4 +222,5 @@ const Home = () => {
     </div>
   );
 };
-export default Home
+
+export default Home;

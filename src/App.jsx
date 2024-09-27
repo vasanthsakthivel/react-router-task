@@ -1,7 +1,8 @@
 import React from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './components/Home'
-import Cart from './components/cart'
+import CartPage from './components/CartPage'
+import { CartProvider } from './components/CartContext'
 const router = createBrowserRouter([
     {
         path: "/",
@@ -9,16 +10,17 @@ const router = createBrowserRouter([
     },
     {
         path: "/cart",
-        element: < Cart />
+        element: < CartPage />
     }
 
 ])
 
 const App = () => {
     return (
-        <div>
-            < RouterProvider router={router} />
-        </div>
+            <CartProvider>
+                < RouterProvider router={router} />
+            </CartProvider>
+            
     )
 }
 
